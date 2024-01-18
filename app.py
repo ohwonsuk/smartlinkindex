@@ -144,10 +144,9 @@ if uploaded_file is not None:
 
     st.write('업로드 전체 데이터수: ',cms_raw['carId'].count())
     st.write("---")
-else:
-    st.warning('엑셀파일을 업로드 하세요')
 
-if st.button("CMS분석하기"):
+
+# if st.button("CMS분석하기"):
     #시간 속성 필드값 datetime으로 type 변경
     cms_raw['차량생성일시'] = cms_raw['차량생성일시'].astype('datetime64[ns]')
     cms_raw['현재장착일'] = cms_raw['현재장착일'].astype('datetime64[ns]')
@@ -189,8 +188,9 @@ if st.button("CMS분석하기"):
     st.write('유효한 차량리스트 :', car_unique['carId'].count())
     st.dataframe(car_unique)
     st.write("---")
+
     #12월 장착차량
-    d = st.date_input('#### 장착시작일자 입력 ####', value=None)
+    d = st.date_input('##### 장착시작일자 입력 #####', value=None)
     st.write('장착시작일:', d)
 
     if d is not None:
@@ -206,6 +206,8 @@ if st.button("CMS분석하기"):
       st.write("---")
     else:
       st.warning('기준일자를 입력 하세요')  
+else:
+    st.warning('엑셀파일을 업로드 하세요')
 
 
 uploaded_file2 = st.file_uploader('#### 2. 거래처별 영업채널 엑셀파일을 업로드하세요 ####')
