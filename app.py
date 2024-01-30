@@ -189,7 +189,7 @@ if uploaded_file is not None:
     st.dataframe(car_unique)
     st.write("---")
 
-    #12월 장착차량
+    #당월 장착차량
     d = st.date_input('##### 장착시작일자 입력 #####', value=None)
     st.write('장착시작일:', d)
 
@@ -197,7 +197,7 @@ if uploaded_file is not None:
       date = np.datetime64(d) # 입력받은 날짜는 date type으로 datetime64 로 변환해야 날짜 비교 가능
       baseData = car_unique.loc[(car_unique['차량생성일시'] >= date) & (car_unique['현재장착일'] >= date) ]
       baseCarId = baseData.iloc[0,1]
-      st.write('12월 carId 시작번호', baseCarId)
+      st.write('당월 carId 시작번호', baseCarId)
       # 기준 carId 이후 생성차량 리스트
       month12 = car_unique.loc[(car_unique['carId'] >= baseCarId) ]
       st.write('### 당월 장착리스트 ###')
@@ -221,13 +221,15 @@ if uploaded_file2 is not None:
     # 신규 장착 거래처별 영업채널 매칭
     marketing_type = pd.merge(month12, customer, left_on='사업자번호', right_on='사업자번호', how='left')
     # 영업채널 미입력 거래처
-    st.write('영업채널 미입력 거래처 : ', marketing_type['영업유형(A)'].isnull().count())
-    st.dataframe(marketing_type.loc[marketing_type['영업유형(A)'].isna()])
+    nochannel = marketing_type.loc[marketing_type['영업유형(A)'].isna()]
+    st.write('영업채널 미입력 거래처 : ', nochannel['carId'].count())
+    st.dataframe(marketing_type.loc[marketing_type['영업유형(A)'].isnull()])
+    # st.dataframe(marketing_type)
     st.write("---")
     # 영업채널 미입력 거래처에 임의값 지정 - 일반
     marketing_type['영업유형(A)'] = marketing_type['영업유형(A)'].fillna('일반')
     st.write("### 고객사별 차량리스트 (영업채널/마케터) ###")
-    columns = ['고객사', '사업자번호', 'RP코드_x', '계약번호', 'carId','차량번호(clean)','모델', '차량생성일시', '현재장착일', 'DEV_EUI','서비스구분','data_server', '영업유형(A)', '23하담당', '인입경로' ]
+    columns = ['고객사', '사업자번호', 'RP코드_x', '계약번호', 'carId','차량번호(clean)','모델', '차량생성일시', '현재장착일', 'DEV_EUI','서비스구분','data_server', '영업유형(A)', '변경담당자', '인입경로' ]
     carlist_col = marketing_type[columns]
     carlist_col.columns = ['고객사', '사업자번호', 'RP코드', '계약번호', 'carId','차량번호','차종', 'carId생성일시', '현재장착일', '단말기번호','서비스구분','데이터접속서버', '영업유형', '담당자', '인입경로' ]
     carlist_col['서비스구분'] = carlist_col['서비스구분'].fillna('-')
