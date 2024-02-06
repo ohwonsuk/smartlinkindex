@@ -11,6 +11,7 @@ import io
 
 
 st.title('스마트링크 운영차량 관리')
+st.sidebar.success("메뉴를 선택하세요")
 
 # 차량번호 cleaning 함수
 def carnoclean(carno):
@@ -86,7 +87,7 @@ if st.button("분석하기"):
     sims_compare["장착대수"] = np.where(sims_compare["금주합계"] - sims_compare["전주합계"] > 0, sims_compare["금주합계"] - sims_compare["전주합계"], 0)
     sims_compare["탈거대수"] = np.where(sims_compare["금주합계"] - sims_compare["전주합계"] < 0, sims_compare["전주합계"] - sims_compare["금주합계"], 0)
     sims_marketing_merge = pd.merge(sims_compare, customer, on='법인명', how='left')
-    columns = ['법인명', 'RP코드_x', '사업자등록번호', '금주합계', '전주합계', '장착대수', '탈거대수', '순번', '영업유형(A)', '23하담당', '인입경로']
+    columns = ['법인명', 'RP코드_x', '사업자등록번호', '금주합계', '전주합계', '장착대수', '탈거대수', '순번', '영업유형(A)', '변경담당자', '인입경로']
     sims_marketing = sims_marketing_merge[columns]
     sims_marketing.columns = ['법인명', 'RP코드', '사업자등록번호', '금주합계', '전주합계', '장착대수', '탈거대수', '순번', '영업유형', '영업담당', '인입경로']
     # 영업유형 미지정 고객사는 '일반' 으로 임의지정 
