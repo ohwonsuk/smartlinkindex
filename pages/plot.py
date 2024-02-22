@@ -31,13 +31,13 @@ placeholder="선택하세요...",
 
 if kind is not None:
     if kind == '전체':
-        month_sum = pd.read_excel("..\month_sum(전체).xlsx")
+        month_sum = pd.read_excel("month_sum(total).xlsx")
     elif kind == '외부':
-        month_sum = pd.read_excel("..\month_sum(외부).xlsx")
+        month_sum = pd.read_excel("month_sum(out).xlsx")
     elif kind == '내부':
-        month_sum = pd.read_excel("..\month_sum(내부).xlsx")
+        month_sum = pd.read_excel("month_sum(in).xlsx")
     else:
-        month_sum = pd.read_excel("..\month_sum(임시).xlsx")
+        month_sum = pd.read_excel("month_sum(temp).xlsx")
 
     month_sum_list = month_sum.iloc[:-1]
     with st.expander("월별 실적데이터"):
