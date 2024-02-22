@@ -233,8 +233,16 @@ if uploaded_file is not None:
         # kind = '외부'
             if kind == '전체':
                 target = cms_avail_list.copy(deep=True)
+                f_name = 'total'
+            elif kind == '외부':
+                target = cms_avail_list.loc[cms_avail_list['구분'] == kind]
+                f_name = 'out'
+            elif kind == '내부':
+                target = cms_avail_list.loc[cms_avail_list['구분'] == kind]
+                f_name = 'in'
             else:
                 target = cms_avail_list.loc[cms_avail_list['구분'] == kind]
+                f_name = 'temp'
 
             # 월별 신규 장착대수 합계
             month_new_sum = target.pivot_table(values='차량사용여부', index='시작연월', aggfunc='count', margins ='True', fill_value=0)
@@ -256,7 +264,7 @@ if uploaded_file is not None:
             month_sum['실장착대수'] = month_sum['신규장착대수'] - month_sum['탈거대수']
             #누적 차량대수 구하기
             month_sum['누적차량대수'] = month_sum['실장착대수'].cumsum()
-            month_sum.to_excel(f"month_sum({kind}).xlsx", index=False)
+            month_sum.to_excel(f"month_sum({f_name}).xlsx", index=False)
             st.write('월별 누적 차량대수')
             st.dataframe(month_sum)
             st.write("---")
