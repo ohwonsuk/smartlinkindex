@@ -15,11 +15,31 @@ import seaborn as sns
 plt.rcParams['figure.figsize'] = [12,8]
 from IPython.display import set_matplotlib_formats
 
-plt.rcParams["font.family"] = 'NanumGothic'
-# 윈도우의 경우 'AppleGothic' 대신에 'Malgun Gothic'을 입력해주세요.
+import os
+import matplotlib.font_manager as fm  # 폰트 관련 용도 as fm
 
-#retina  화면 선명도 개선
-set_matplotlib_formats('retina')
+def unique(list):
+    x = np.array(list)
+    return np.unique(x)
+
+@st.cache_data
+def fontRegistered():
+    font_dirs = [os.getcwd() + '/customFonts']
+    font_files = fm.findSystemFonts(fontpaths=font_dirs)
+
+    for font_file in font_files:
+        fm.fontManager.addfont(font_file)
+    fm._load_fontmanager(try_read_cache=False)
+
+fontRegistered()
+fontNames = [f.name for f in fm.fontManager.ttflist]
+fontname = st.selectbox("폰트 선택", unique(fontNames))
+st.write('애플 : AppleGothic')
+
+plt.rc('font', family=fontname)
+
+# plt.rcParams["font.family"] = 'NanumGothic'
+# 윈도우의 경우 'AppleGothic' 대신에 'Malgun Gothic'을 입력해주세요.
 
 # minus 표출 오류 대응
 plt.rcParams['axes.unicode_minus'] = False
