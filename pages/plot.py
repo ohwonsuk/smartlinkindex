@@ -18,25 +18,25 @@ from IPython.display import set_matplotlib_formats
 import os
 import matplotlib.font_manager as fm  # 폰트 관련 용도 as fm
 
-def unique(list):
-    x = np.array(list)
-    return np.unique(x)
+# def unique(list):
+#     x = np.array(list)
+#     return np.unique(x)
 
-@st.cache_data
-def fontRegistered():
-    font_dirs = [os.getcwd() + '/customFonts']
-    font_files = fm.findSystemFonts(fontpaths=font_dirs)
+# @st.cache_data
+# def fontRegistered():
+#     font_dirs = [os.getcwd() + '/customFonts']
+#     font_files = fm.findSystemFonts(fontpaths=font_dirs)
 
-    for font_file in font_files:
-        fm.fontManager.addfont(font_file)
-    fm._load_fontmanager(try_read_cache=False)
+#     for font_file in font_files:
+#         fm.fontManager.addfont(font_file)
+#     fm._load_fontmanager(try_read_cache=False)
 
-fontRegistered()
-fontNames = [f.name for f in fm.fontManager.ttflist]
-fontname = st.selectbox("폰트 선택", unique(fontNames))
-st.write('애플 : AppleGothic')
+# fontRegistered()
+# fontNames = [f.name for f in fm.fontManager.ttflist]
+# fontname = st.selectbox("폰트 선택", unique(fontNames))
+# st.write('애플 : AppleGothic')
 
-plt.rc('font', family=fontname)
+# plt.rc('font', family=fontname)
 
 # plt.rcParams["font.family"] = 'NanumGothic'
 # 윈도우의 경우 'AppleGothic' 대신에 'Malgun Gothic'을 입력해주세요.
