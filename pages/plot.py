@@ -15,6 +15,15 @@ import seaborn as sns
 plt.rcParams['figure.figsize'] = [12,8]
 from IPython.display import set_matplotlib_formats
 
+plt.rcParams["font.family"] = 'Malgun Gothic'
+# 윈도우의 경우 'AppleGothic' 대신에 'Malgun Gothic'을 입력해주세요.
+
+#retina  화면 선명도 개선
+set_matplotlib_formats('retina')
+
+# minus 표출 오류 대응
+plt.rcParams['axes.unicode_minus'] = False
+
 st.header("스마트링크 연도별 월별 실적")
 
 st.write('▹ 전체: 운영차량 전체')
