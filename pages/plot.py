@@ -143,13 +143,13 @@ if option is not None:
         st.write('월별 누적 차량대수')
         st.line_chart(month_sum_plot, x='기준월' , y='누적차량대수', color='#F9051C', )
 
-        fig, ax = plt.subplots(figsize=(10,6))
-        ax.plot(month_sum_plot[option], label=option)
-        ax.plot(month_sum_plot['누적차량대수'], label='누적차량대수')
-        ax.set_xlabel('기준월')
-        ax.set_ylabel('차량대수')
-        ax.legend()
-        st.pyplot(fig)
+        # fig, ax = plt.subplots(figsize=(10,6))
+        # ax.plot(month_sum_plot[option], label=option)
+        # ax.plot(month_sum_plot['누적차량대수'], label='누적차량대수')
+        # ax.set_xlabel('기준월')
+        # ax.set_ylabel('차량대수')
+        # ax.legend()
+        # st.pyplot(fig)
 
 st.write('---')
 
