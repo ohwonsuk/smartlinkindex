@@ -15,7 +15,7 @@ import seaborn as sns
 plt.rcParams['figure.figsize'] = [12,8]
 from IPython.display import set_matplotlib_formats
 
-plt.rcParams["font.family"] = 'Malgun Gothic'
+plt.rcParams["font.family"] = 'NanumGothic'
 # 윈도우의 경우 'AppleGothic' 대신에 'Malgun Gothic'을 입력해주세요.
 
 #retina  화면 선명도 개선
