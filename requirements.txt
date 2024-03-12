@@ -5,15 +5,11 @@ openpyxl
 matplotlib
 seaborn
 plotly
-scikit-learn
-lightgbm
 prophet
 statsmodels
 streamlit
 geopandas
 folium
-xmltodict
 streamlit-option-menu
-millify
 pingouin
 jupyterlab
