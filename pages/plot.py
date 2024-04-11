@@ -116,18 +116,24 @@ if option is not None:
             month_sum_plot = month_sum_list.iloc[start:end]
             st.dataframe(month_sum_plot)
 
-        st.write('월별 신규 장착대수')
+        st.write('월별 '+ option)
         st.bar_chart(month_sum_plot, x='기준월' , y= option)
         st.write('월별 누적 차량대수')
         st.line_chart(month_sum_plot, x='기준월' , y='누적차량대수', color='#F9051C', )
 
-        fig, ax = plt.subplots(figsize=(10,6))
-        ax.plot(month_sum_plot['장착대수'], label=option)
-        ax.plot(month_sum_plot['누적차량대수'], label='누적차량대수')
-        ax.set_xlabel('기준월')
-        ax.set_ylabel('차량대수')
-        ax.legend()
+        total_length = len(month_sum_plot.index)
+        fig, ax1 = plt.subplots(figsize=(10,6))
+        ax2 = ax1.twinx()
+        ax1.bar(month_sum_plot['기준월'], month_sum_plot[option], label='Monthly count')
+        ax2.plot(month_sum_plot['기준월'], month_sum_plot['누적차량대수'], label='Accumulated count', color='Red')
+        ax1.set_xticks(np.arange(0, total_length+1, 12))
+        ax1.set_xlabel('Year-Month')
+        ax1.set_ylabel('count')
+        ax2.set_ylabel('Accumulated Count')
+        ax1.legend(loc='upper left')
+        ax2.legend(loc='upper right')
         st.pyplot(fig)
+
     else:
         if s_year == 2016:
             count = 2+ gap_year * 12
