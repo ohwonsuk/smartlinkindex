@@ -126,7 +126,7 @@ if uploaded_file is not None:
         with st.expander("차량데이터 확인"):
             st.dataframe(car_unique)
         st.write("---")
-        car_unique.to_excel(f"car_unique({d}).xlsx", index=False)
+        # car_unique.to_excel(f"car_unique({d}).xlsx", index=False)
 
         baseData = car_unique.loc[(car_unique['차량생성일시'] >= start_date) & (car_unique['현재장착일'] >= start_date) ]
         baseCarId = baseData.iloc[0,1]
@@ -139,28 +139,28 @@ if uploaded_file is not None:
             st.dataframe(month)
         st.write("---")
         #월간 데이터 엑셀로 저장
-        month.to_excel(f"month({d}).xlsx", index=False)
+        # month.to_excel(f"month({d}).xlsx", index=False)
     else:
         st.warning('기준일자를 입력 하세요')  
 else:
     st.warning('엑셀파일을 업로드 하세요')
 
-st.write('#### 2. 장착월 선택하세요')
-selectmonth = st.selectbox(
-    "작업한 데이터로 24년도 조회월 선택",
-    ("1월", '2월', '3월', '4월'),
-    index=None,
-    placeholder="조회월 선택하기",
-)
+# st.write('#### 2. 장착월 선택하세요')
+# selectmonth = st.selectbox(
+#     "작업한 데이터로 24년도 조회월 선택",
+#     ("1월", '2월', '3월', '4월'),
+#     index=None,
+#     placeholder="조회월 선택하기",
+# )
 
-if selectmonth is not None:
-    monthlist = {'1월': '2024-01-01', '2월': '2024-02-01', '3월':'2024-03-01', '4월':'2024-04-01', '5월':'2024-05-01', '6월':'2024-06-01'}
-    mon_num = monthlist.get(selectmonth)
-    # month = pd.read_excel(f"month({mon_num}).xlsx")
-    with st.expander(f"{selectmonth} 장착차량 확인"):
-        st.dataframe(month)
+# if selectmonth is not None:
+#     monthlist = {'1월': '2024-01-01', '2월': '2024-02-01', '3월':'2024-03-01', '4월':'2024-04-01', '5월':'2024-05-01', '6월':'2024-06-01'}
+#     mon_num = monthlist.get(selectmonth)
+#     # month = pd.read_excel(f"month({mon_num}).xlsx")
+#     with st.expander(f"{selectmonth} 장착차량 확인"):
+#         st.dataframe(month)
 
-uploaded_file2 = st.file_uploader('#### 3. 거래처별 영업채널 엑셀파일을 업로드하세요 ####')
+uploaded_file2 = st.file_uploader('#### 2. 거래처별 영업채널 엑셀파일을 업로드하세요 ####')
 if uploaded_file2 is not None:
     customer=pd.read_excel(uploaded_file2)
     filename2=uploaded_file2.name
