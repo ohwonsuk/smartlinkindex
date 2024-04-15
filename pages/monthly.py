@@ -156,7 +156,7 @@ selectmonth = st.selectbox(
 if selectmonth is not None:
     monthlist = {'1월': '2024-01-01', '2월': '2024-02-01', '3월':'2024-03-01', '4월':'2024-04-01', '5월':'2024-05-01', '6월':'2024-06-01'}
     mon_num = monthlist.get(selectmonth)
-    month = pd.read_excel(f"month({mon_num}).xlsx")
+    # month = pd.read_excel(f"month({mon_num}).xlsx")
     with st.expander(f"{selectmonth} 장착차량 확인"):
         st.dataframe(month)
 
