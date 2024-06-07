@@ -129,7 +129,7 @@ if uploaded_file is not None:
         # car_unique.to_excel(f"car_unique({d}).xlsx", index=False)
 
         baseData = car_unique.loc[(car_unique['차량생성일시'] >= start_date) & (car_unique['현재장착일'] >= start_date) ]
-        baseCarId = baseData.iloc[0,1]
+        baseCarId = baseData.iloc[0,2]
         st.write('당월 carId 시작번호', baseCarId)
         # 기준 carId 이후 생성차량 리스트
         month = car_unique.loc[(car_unique['carId'] >= baseCarId) ]
