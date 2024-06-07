@@ -106,7 +106,7 @@ uploaded_file = st.file_uploader('#### CMS 엑셀파일을 업로드하세요 ##
 if uploaded_file is not None:
 
 #read xls or xlsx
-    cms_raw=pd.read_excel(uploaded_file, dtype={ 18: str,19: str})
+    cms_raw=pd.read_excel(uploaded_file, dtype={ 18: str,19: str}, parse_dates=['현재장착일','차량생성일시'] )
     filename=uploaded_file.name
     # new_header = df1.iloc[0]
     # df1 = df1[1:]
