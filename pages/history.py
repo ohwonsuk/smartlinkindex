@@ -13,7 +13,7 @@ import io
 import matplotlib.pyplot as plt
 import seaborn as sns
 plt.rcParams['figure.figsize'] = [12,8]
-from IPython.display import set_matplotlib_formats
+# from IPython.display import set_matplotlib_formats
 
 # import matplotlib.font_manager as fm
 # fm.get_fontconfig_fonts()
@@ -22,7 +22,7 @@ plt.rcParams["font.family"] = 'AppleGothic'
 # 윈도우의 경우 'AppleGothic' 대신에 'Malgun Gothic'을 입력해주세요.
 
 #retina  화면 선명도 개선
-set_matplotlib_formats('retina')
+# set_matplotlib_formats('retina')
 
 # minus 표출 오류 대응
 plt.rcParams['axes.unicode_minus'] = False
@@ -42,10 +42,28 @@ def carnoclean(carno):
         return carno.replace('__고객사변경', '')
     elif '(삭제)' in str(carno):
         return carno.replace('(삭제)', '')
+    elif '(삭제2)' in str(carno):
+        return carno.replace('(삭제2)', '')
     elif '(반납)' in str(carno):
         return carno.replace('(반납)', '')
     elif '(교체)' in str(carno):
         return carno.replace('(교체)', '')
+    elif '(이관)' in str(carno):
+        return carno.replace('(이관)', '')
+    elif '(회수예정)' in str(carno):
+        return carno.replace('(회수예정)', '')
+    elif '(교)' in str(carno):
+        return carno.replace('(교)', '')
+    elif '(구)' in str(carno):
+        return carno.replace('(구)', '')
+    elif '(이동)' in str(carno):
+        return carno.replace('(이동)', '')
+    elif '(만21세)' in str(carno):
+        return carno.replace('(만21세)', '')
+    elif '(만26세)' in str(carno):
+        return carno.replace('(만26세)', '')
+    elif '(탈거)' in str(carno):
+        return carno.replace('(탈거)', '')
     elif '(진행불가)' in str(carno):
         return carno.replace('(진행불가)', '')
     elif '(임시)' in str(carno):
@@ -56,6 +74,14 @@ def carnoclean(carno):
         return carno.replace('(기존)', '')
     elif '(ㅅㅈ)' in str(carno):
         return carno.replace('(ㅅㅈ)', '')
+    elif '(테스트)' in str(carno):
+        return carno.replace('(테스트)', '')
+    elif '(관제)' in str(carno):
+        return carno.replace('(관제)', '')
+    elif '출장차량' in str(carno):
+        return carno.replace('출장차량', '')
+    elif '출장전용' in str(carno):
+        return carno.replace('출장전용', '')
     elif '__' in str(carno):
         return carno.replace('_', '')
     elif '_' in str(carno):
@@ -83,15 +109,27 @@ def companykind(company):
         return '내부'
     elif '직영' in str(company):
         return '내부'
+    elif '모빌리티뱅크' in str(company):
+        return '내부'
     elif 'PoC' in str(company):
         return '임시'
     elif '스마트링크' in str(company):
         return '임시'
     elif '내부' in str(company):
         return '임시'
+    elif '운영센터' in str(company):
+        return '임시'
     elif '계원' in str(company):
         return '임시'
+    elif '반납' in str(company):
+        return '임시'
     elif 'SKCarRental' in str(company):
+        return '임시'
+    elif 'ADT' in str(company):
+        return '임시'
+    elif 'SKRT' in str(company):
+        return '임시'
+    elif '애플심사' in str(company):
         return '임시'
     elif company == '-':
         return '임시'
@@ -106,7 +144,7 @@ uploaded_file = st.file_uploader('#### CMS 엑셀파일을 업로드하세요 ##
 if uploaded_file is not None:
 
 #read xls or xlsx
-    cms_raw=pd.read_excel(uploaded_file, dtype={ 18: str,19: str}, parse_dates=['현재장착일','차량생성일시'] )
+    cms_raw=pd.read_excel(uploaded_file, dtype={17:str, 18: str,19: str}, parse_dates=['현재장착일','차량생성일시'] )
     filename=uploaded_file.name
     # new_header = df1.iloc[0]
     # df1 = df1[1:]
@@ -163,7 +201,9 @@ if uploaded_file is not None:
         cms_off.loc[cms_off['마지막시동on'] < cms_off['계약종료일자'], '종료일자'] = cms_off['마지막시동on']
         cms_off.loc[cms_off['계약종료일자(clean)'] < cms_off['차량갱신일시'], '종료일자'] = cms_off['계약종료일자(clean)']
         cms_off.loc[cms_off['탈거완료작업일자'] > cms_off['마지막시동on'], '종료일자'] = cms_off['탈거완료작업일자']
-        cms_off['종료연월'] = cms_off['종료일자'].dt.strftime("%Y%m")
+        print(cms_off.head())
+        # cms_off['종료연월'] = cms_off['종료일자'].dt.strftime("%Y%m")
+        cms_off['종료연월'] = pd.to_datetime(cms_off['종료일자'], format='mixed').dt.strftime("%Y%m")
 
         # 미사용 차량 리스트 추출
         columns = ['carId','종료일자', '종료연월']
