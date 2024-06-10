@@ -196,6 +196,9 @@ if uploaded_file is not None:
         cms_on = cms_sort.loc[cms_sort['차량사용여부'] == 1]
         cms_off = cms_sort.loc[cms_sort['차량사용여부'] == 0]
 
+        with st.expander("데이터 보정작업내용"):
+            st.dataframe(cms_raw.head())
+
         # 미사용 차량 종료연월 입력
         cms_off['종료일자'] = cms_off['차량갱신일시']
         cms_off.loc[cms_off['마지막시동on'] < cms_off['계약종료일자'], '종료일자'] = cms_off['마지막시동on']
